@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+<meta charset="utf-8">
+<title>TEAM NEO ZEONG</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="initial-scale=1.0">
+<!-- style -->
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/css/parts.css">
+<!-- js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../assets/js/common.js"></script>
+<script>
+  // Explain message
+  let explain1_ja = '<span class="c_yellow">エネルギーを送って</span><br>モビルスーツを支援せよ！';
+  let explain1_en = '<span class="c_yellow">Give energy</span><br>and back up Mobile Suit!';
+  let explain1_cn = '<span class="c_yellow">送出能量</span><br>支援機動戰士！';
+  let explain1_kr = '<span class="c_yellow">에너지를 보내</span><br>모빌슈트를 지원하라!';
+
+  let explain2_ja = 'ゲージのスターを獲得すると<br>相手にダメージを与え<br>ライフを減らすことができる';
+  let explain2_en = 'You can damage<br>the opponent by getting<br>stars of the gauge';
+  let explain2_cn = '獲得能量星<br>就能給予對方傷害';
+  let explain2_kr = '게이지의 별을 획득하면<br>상대에게 데미지를 줄 수 있다';
+  let guidance_end = false;
+
+  let getSid_retry_cnt = 0;
+  const api_call_max = 30;
+
+  function guidance1(lang) {
+    setTimeout(() => {
+      switch (lang) {
+        case '1':
+          $("#loadText").addClass('jp_font').html(explain1_ja);
+          break;
+        case '2':
+          $("#loadText").addClass('en_font').html(explain1_en);
+          break;
+        case '3':
+          $("#loadText").addClass('ch_font font18').html(explain1_cn);
+          break;
+        case '4':
+          $("#loadText").addClass('font18').html(explain1_kr);
+          break;
+        default:
+          $("#loadText").addClass('jp_font').html(explain1_ja);
+          break;
+      }
+      $("#loadImg").children("img").attr("src","../assets/img/neozeong_load01.png");
+    }, 500);
+  }
+  function guidance2(lang) {
+    setTimeout(() => {
+      switch (lang) {
+        case '1':
+          $("#loadText").html(explain1_ja);
+          break;
+        case '2':
+          $("#loadText").html(explain1_en);
+          break;
+        case '3':
+          $("#loadText").html(explain1_cn);
+          break;
+        case '4':
+          $("#loadText").html(explain1_kr);
+          break;
+        default:
+          $("#loadText").html(explain1_ja);
+          break;
+      }
+      $("#loadImg").children("img").attr("src","../assets/img/neozeong_load02.png");
+    }, 3000);
+  }
+  function guidance3(lang) {
+    setTimeout(() => {
+      switch (lang) {
+        case '1':
+          $("#loadText").html(explain2_ja);
+          break;
+        case '2':
+          $("#loadText").html(explain2_en);
+          break;
+        case '3':
+          $("#loadText").html(explain2_cn);
+          break;
+        case '4':
+          $("#loadText").html(explain2_kr);
+          break;
+        default:
+          $("#loadText").html(explain2_ja);
+          break;
+      }
+      $("#loadImg").children("img").attr("src","../assets/img/neozeong_load03.png");
+    }, 6000);
+  }
+  function guidance4(lang) {
+    setTimeout(() => {
+      switch (lang) {
+        case '1':
+          $("#loadText").html(explain1_ja);
+          break;
+        case '2':
+          $("#loadText").html(explain1_en);
+          break;
+        case '3':
+          $("#loadText").html(explain1_cn);
+          break;
+        case '4':
+          $("#loadText").html(explain1_kr);
+          break;
+        default:
+          $("#loadText").html(explain1_ja);
+          break;
+      }
+      $("#loadImg").children("img").attr("src","../assets/img/neozeong_load04_" + lang + ".png");
+      guidance_end = true;
+    }, 9000);
+  }
+  function battleStart() {
+    setTimeout(() => {
+      $('#changeFrame').children('img').attr('src', '../assets/img/frame_orange.png');
+      $('.none').addClass('active').dequeue();
+    }, 100);
+  }
+  function pagination() {
+    setTimeout(() => {
+      window.location.href = '../team_neozeong_attack/';
+    }, 500);
+  }
+  function getSid() {
+    let l_sid = window.sessionStorage.getItem('sid');
+    if(l_sid == null || l_sid == "") {
+      // Initialize
+      $.ajax({
+        url: 'https://gundamapim.azurewebsites.net/api/front/initialize',
+        type: 'GET',
+        dataType: 'json',
+        timeout:3000
+      })
+      .done((data) => {
+        // console.log(JSON.stringify(data));
+        // If json object is empty
+        if(Object.keys(data).length == 0) {
+          getSid_retry_cnt++;
+          if(getSid_retry_cnt < api_call_max) {
+            console.log("Retry...");
+            // Retry
+            setTimeout(() => {
+              getSid();
+            }, 2000);
+            return;
+          }
+        }
+        if (data == null) {
+          console.log("data is null");
+        } else if (data.sid == null) {
+          console.log("Sid is null, so go to top page.");
+          // Page transition to Top Page
+          location.href="../";
+        } else {
+          l_sid = data.sid;
+          // Set sid to session storage
+          window.sessionStorage.setItem('sid', l_sid);
+        }
+      })
+      .fail((data) => {
+        console.log("Exception occurred, so api call retry.");
+        // Sometimes Exception occures, because of the cold standby mode of the server.
+        // Go to top page, if api call failed several times.
+        getSid_retry_cnt++;
+        if(getSid_retry_cnt < api_call_max) {
+          // Retry
+          setTimeout(() => {
+            getSid();
+          }, 2000);
+          return;
+        }
+        // Retry out
+        if (getSid_retry_cnt == api_call_max ) {
+          console.log("Retry out, so go to top page.");
+          // Page transition to Top Page
+          location.href="../";
+        }
+      })
+      .always((data) => {
+        // console.log("Complete...");
+      });
+    }
+    return l_sid;
+  }
+  function gameStart() {
+    let timerId;
+    // Polling
+    let gameStartCheck = () => {
+      $.ajax({
+        url: 'https://gundamapim.azurewebsites.net/api/front/status',
+        type: 'GET',
+        dataType: 'json'
+      })
+      .done((data) => {
+        console.log(JSON.stringify(data));
+        if (data == null) {
+          console.log("data is null");
+          return;
+        }
+        let status = data.status;
+        // For develop
+        // status = window.sessionStorage.getItem('status');
+
+        // Game Start
+        if (guidance_end && (status == 1 || status == 2)) {
+          // console.log("Game Start...");
+          // Stop timer
+          clearInterval(timerId);
+          // Battle Start
+          battleStart();
+          // Pagination
+          pagination();
+        } else {
+          // console.log("Waiting for game start...");
+        }
+      })
+      .fail((data) => {
+        console.log("Exception...");
+      })
+      .always((data) => {
+        // console.log("Complete...");
+      });
+    }
+    // Execute pooling
+    timerId = setInterval(gameStartCheck, 2000);
+  }
+
+  $(document).ready(function(){
+    let heightSize = $(window).height();
+    $('.screen_wrap').height(heightSize);
+    $('.mask_bg').height(heightSize);
+  });
+
+</script>
+</head>
+  <body>
+    <section id="guidance" class="screen_wrap select_sec">
+      <div class="none mask_bg mask_bg_battlestart">
+        <div class="ttl_center">
+          <figure>
+            <img src="../assets/img/title_start.png" alt="">
+          </figure>
+        </div>
+      </div>
+      <div class="headTitle">
+        <figure>
+          <img src="../assets/img/top_bar01.png" alt="装飾ヘッダー">
+        </figure>
+      </div>
+      <div class="pageTitle">
+        <p class="font40 en_font">STAND BY...</p>
+      </div>
+      <div class="loadWrap">
+        <figure id="loadImg" class="">
+          <img src="../assets/img/neozeong_load01.png">
+        </figure>
+      </div>
+      <div class="bottom_abs_button zindex_button">
+        <div class="flex wrap img_w img_w75">
+          <figure class="bg_frame">
+            <p id="loadText" class="abs_text_center bold"></p>
+            <figure id="changeFrame" class="changeFrame">
+              <img src="../assets/img/frame.png" alt="フレーム">
+            </figure>
+          </figure>
+        </div>
+      </div>
+
+    </section>
+    <script>
+      let lang = window.sessionStorage.getItem('lang');
+      // Guidance
+      guidance1(lang);
+      guidance2(lang);
+      guidance3(lang);
+      guidance4(lang);
+      // Get sid
+      getSid();
+      // Game Start
+      gameStart();
+    </script>
+  </body>
+</html>

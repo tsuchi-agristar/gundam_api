@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="jp" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>GUNDAM SCRAMBLE IN FUKUOKA</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="initial-scale=1.0">
+<!-- style -->
+<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="./assets/css/parts.css">
+<!-- js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="./assets/js/common.js"></script>
+<script>
+  let selectSound = new Audio("./assets/mp3/tap01.mp3");
+  let tapSound = () => {
+    selectSound.play();
+  }
+  let start = () => {
+    //Sound
+    setTimeout(function() {
+      tapSound();
+    }, 100);
+    setTimeout(function() {
+      window.location.href = './language/';
+    }, 1500);
+  }
+
+  $(document).ready(function(){
+    if (window.ontouchstart === null) {
+      $(".screen_wrap").on('touchstart', function(e) {
+        e.preventDefault();
+        // Sound
+        start();
+      });
+    }else {
+      $(".screen_wrap").on('click', function(e) {
+        e.preventDefault();
+        // Sound
+        start();
+      });
+    }
+    let heightSize = $(window).height();
+    $('.screen_wrap').height(heightSize);
+    // Initialize the session storage
+    window.sessionStorage.clear();
+  });
+
+</script>
+</head>
+  <body>
+    <div id="loading" class="rel">
+      <figure class="loading_center">
+        <img width="" src="./assets/img/img_title01.png" alt="セレクト">
+        <p class="ta_c">LOADING NOW...</p>
+      </figure>
+    </div>
+    <section id="select_sec" class="screen_wrap select_sec" onclick="">
+      <div class="mainvisual">
+          <figure class="img_w img_w85">
+            <img src="./assets/img/mv.jpg" alt="">
+          </figure>
+        </div>
+    </section>
+    <script type="text/javascript">
+    // ローディング TOPのみ
+    $(window).on('load', function(){
+      const spinner = document.getElementById('loading');
+      spinner.classList.add('loaded');
+    });
+    </script>
+  </body>
+</html>

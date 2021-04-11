@@ -1,0 +1,163 @@
+@charset "utf-8";
+.flex{display:flex;justify-content:space-between}
+.flex.start{justify-content:flex-start}
+.flex.end{justify-content:flex-end}
+.flex.center{justify-content:center}
+.flex.around{justify-content:space-around}
+.flex.middle{align-items:center}
+.flex.baseline{align-items:baseline}
+.flex.wrap{flex-wrap:wrap}
+.flex.nowrap{flex-wrap:nowrap}
+.flex.bottom{align-items:flex-end}
+
+.w_45{width: 45%;}
+.w_46{width: 46%;}
+.w_47{width: 47%;}
+.w_48{width: 48%;}
+.w_49{width: 49%;}
+.w_50{width: 50%;}
+
+.img_w{
+  text-align: center;
+  margin: 0 auto;
+}
+@media screen and (max-width:769px){
+  .img_w10{ width: 10vw; text-align: center;margin: 0 auto;}
+  .img_w15{ width: 15vw; text-align: center;margin: 0 auto;}
+  .img_w20{ width: 20vw; text-align: center;margin: 0 auto;}
+  .img_w25{ width: 25vw; text-align: center;margin: 0 auto;}
+  .img_w30{ width: 30vw; text-align: center;margin: 0 auto;}
+  .img_w35{ width: 35vw; text-align: center;margin: 0 auto;}
+  .img_w40{ width: 40vw; text-align: center;margin: 0 auto;}
+  .img_w45{ width: 45vw; text-align: center;margin: 0 auto;}
+  .img_w50{ width: 50vw; text-align: center;margin: 0 auto;}
+  .img_w55{ width: 55vw; text-align: center;margin: 0 auto;}
+  .img_w58{ width: 58vw; text-align: center;margin: 0 auto;}
+  .img_w60{ width: 60vw; text-align: center;margin: 0 auto;}
+  .img_w65{ width: 65vw; text-align: center;margin: 0 auto;}
+  .img_w70{ width: 70vw; text-align: center;margin: 0 auto;}
+  .img_w75{ width: 75vw; text-align: center;margin: 0 auto;}
+  .img_w80{ width: 80vw; text-align: center;margin: 0 auto;}
+  .img_w85{ width: 85vw; text-align: center;margin: 0 auto;}
+  .img_w90{ width: 90vw; text-align: center;margin: 0 auto;}
+  .img_w95{ width: 95vw; text-align: center;margin: 0 auto;}
+  .img_w100{ width: 100vw; text-align: center;margin: 0 auto;}
+}
+.zindex1{position: relative;z-index: 1;}
+.zindex2{position: relative;z-index: 2;}
+.zindex3{position: relative;z-index: 3;}
+.zindex4{position: relative;z-index: 4;}
+.zindex5{position: relative;z-index: 5;}
+.zindex7{position: relative;z-index: 7;}
+.zindex8{position: relative;z-index: 8;}
+.zindex_button{position: relative;z-index: 50;}
+
+.bottom_abs_button,
+.bottom_abs_button02,
+.top_abs_button{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+.bottom_abs_button02{
+  top: 30px;
+}
+.top_abs_button{
+  width: 100%;
+  max-width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  bottom: auto;
+  top:0;
+}
+.bold{
+  font-weight: bold;
+}
+.ta_c{text-align: center;}
+.ta_l{text-align: left;}
+.ta_r{text-align: right;}
+.c_yellow{color: #ff8c00}
+.top_abs_bar{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding: 2.8vw 0 0 0;
+  margin: 0 auto;
+}
+.c_white01{
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(90, 238, 229, 0.1), 1px 1px 6px rgba(90, 238, 229, 0.7);
+}
+.c_blue01{
+  color: #5AEEE5;
+}
+.text_shadow_danger01{
+  text-shadow: 1px 1px 12px red, 0 0 20px #f91212, 0 0 20px red;
+}
+.button_action.button_shadow01 {
+  /* animation: blinkAnime 500ms normal; */
+  animation: blinkAnime 10ms normal;
+}
+@keyframes blinkAnime{
+   0% { background: rgba(75, 194, 205, 0.5); }
+   25% { background:rgba(75, 194, 205, 0.2); }
+   50% { background: rgba(75, 194, 205, 0.5); }
+  100% { background:rgba(75, 194, 205, 0.2); }
+}
+.mb5{margin-bottom:5px;}
+.mb10{margin-bottom:10px;}
+
+.mt20{margin-top:20px;}
+
+.mr16{margin-right:1rem;}
+
+@media screen and (max-width:769px){
+  .mr16 {
+    font-size: 36px;
+  }
+}
+
+.text_padding_block{
+  padding-bottom:3px;
+  display: block;
+  line-height: 1;
+}
+.font15{font-size: 16.5px;}
+.font17{font-size: 15px;}
+.font18{font-size: 18px;}
+.font22{font-size: 22px;}
+.font25{font-size: 25px;}
+.font28{font-size: 28px;}
+.font29{font-size: 29px;}
+.font30{font-size: 30px;}
+.font32{font-size: 32px;}
+.font35{font-size: 35px;}
+.font40{font-size: 36px;}
+.font50{font-size: 50px;}
+.font100{font-size: 100px;}
+
+.ls-09{letter-spacing: -0.9rem;}
+.ls01{letter-spacing: 0.1rem;}
+.ls02{letter-spacing: 0.2rem;}
+.ls03{letter-spacing: 0.3rem;}
+.ls04{letter-spacing: 0.4rem;}
+.ls05{letter-spacing: 0.5rem;}
+.ls06{letter-spacing: 0.6rem;}
+.ls07{letter-spacing: 0.7rem;}
+
+.lh07{line-height: 0.7;}
+.lh1{line-height: 1;}
+@media (max-width:320px){
+.font40{font-size: 36px;}
+}
+
+.orangeText{
+  color: #ff8c00;
+  text-shadow: 0 0px 6px #ff6a00, 0 0px 6px #ff6a00;
+}

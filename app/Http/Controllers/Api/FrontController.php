@@ -210,4 +210,33 @@ class FrontController extends Controller
 
       return \Response::json($response_data, Response::HTTP_OK);
     }
+
+    /**
+     * 
+     * 
+     */
+    public function participants(FrontRequest $request)
+    {
+      $response_data = null;
+
+      try {
+          $sql = "SELECT TOP 1 "
+          . "CASE WHEN winner = '" . $request->input('team') . "' THEN 1 ELSE 0 END AS result, "
+          . "CASE WHEN " . $request->input('team') . " = '1' THEN a_participants ELSE b_participants END AS team_participants "
+          . "FROM games ORDER BY game_id DESC";
+          // \Log::debug($sql);
+
+          $game_result = DB::select($sql);
+          if (!empty($game_result)) {
+            $response_data = $game_result[0];
+          }
+
+      } catch (\Exception $e) {
+          \Log::critical('[front.attack] ' . __METHOD__ . '::' . (__LINE__) . PHP_EOL . $e);
+          $response_data['error'][] = $e->getMessage();
+          return \Response::json($response_data, Response::HTTP_INTERNAL_SERVER_ERROR);
+      }
+
+      return \Response::json($response_data, Response::HTTP_OK);
+    }
 }

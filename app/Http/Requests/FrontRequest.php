@@ -43,6 +43,14 @@ class FrontRequest extends FormRequest
                         ],
                     ];
                 }
+                if (Route::currentRouteName() === 'front.participants') {
+                    $rules = [
+                        "team" => [
+                            "required",
+                            Rule::in(config('const.team')),
+                        ],
+                    ];
+                }
                 break;
         }
         return $rules;

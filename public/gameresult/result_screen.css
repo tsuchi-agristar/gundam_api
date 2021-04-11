@@ -1,0 +1,292 @@
+@charset "utf-8";
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed,figure, figcaption, footer, header, hgroup,menu, nav, output, ruby, section, summary,time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+  color: #444;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1.3;
+  color: #222;
+  background: #efefef;
+}
+tr,th{
+  color: #222;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+figure img{
+vertical-align: bottom;
+max-width: 100%;
+}
+@font-face {
+	font-family: 'jp_font';
+	src: url(./font/FOT-CometStd-B.woff);
+}
+@font-face {
+	font-family: 'en_font';
+	src: url(./font/silom-webfont.woff);
+}@font-face{
+	font-family: adobe-gothic-std, sans-serif;
+	font-weight: 700;
+	font-style: normal;
+}
+.en_font{
+	font-family: 'en_font';
+}
+.ko_font{
+	font-family: adobe-gothic-std, sans-serif;
+}
+body {
+	font-family: "游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;;
+	color: #fff;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+::selection {
+    background: rgba(42, 51, 107, 0.2);
+}
+//Firefox
+::-moz-selection {
+    background: rgba(42, 51, 107, 0.2);
+}
+.secinner{
+  width: 98%;
+	height: auto;
+	padding: 0 20px;
+	box-sizing: border-box;
+	margin: 0 auto;
+}
+.overflow{
+	height: 80vh;
+	box-sizing: border-box;
+	overflow-x: scroll;
+
+}
+.header {
+	padding: 20px 10px;
+	background: #113D70;
+  background: -moz-linear-gradient(left, #113D70, #075ab7);
+  background: -webkit-linear-gradient(left, #113D70, #075ab7);
+  background: linear-gradient(to right, #113D70, #075ab7);
+	background: url(./img/spacebg.png) center / cover no-repeat;
+}
+.sub_txt{
+	color: #9c9c9c;
+}
+.ta_l{
+	text-align: left !important;
+}
+@media (max-width:768px){
+	.secinner{
+		height: 70vh;
+		width: 100%;
+		padding: 0 15px;
+	}
+}
+/********************************************
+* result_table
+********************************************/
+#scrollbar01{
+	position: relative;
+	width: 100%;
+	background: #fff;
+	box-shadow: 0 0 13px 0px rgba(0, 0, 0, 0.1);
+}
+.ico_n {background: #84080c;}
+.ico_u {background: #545652;}
+.result_table tr {
+  border-top: 1px solid #e1e1e1;
+}
+
+.result_table tr th,
+.result_table tr th{
+	width: 180px;
+  font-size: 15px;
+	font-size:	0.9375rem;
+  font-weight: 600;
+}
+.result_table tr th {
+	position: sticky;
+	position: -webkit-sticky;
+	top: -1px;
+	font-size: 15px;
+	padding: 10px 5px;
+	color: #fff;
+	background: #2a336b;
+	border-right: 1px solid rgba(214, 214, 214, 0.5);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+	z-index: 1;
+}
+.result_table tr td {
+	font-size: 15px;
+	font-size:	0.9375rem;
+	background: #ffffff;
+	text-align: center;
+	padding: 5px 7px;
+  font-weight: 500;
+	vertical-align: middle;
+	white-space: nowrap;
+  border-right: 1px solid  rgba(214, 214, 214, 0.5);
+	border-bottom: 1px solid #e1e1e1;
+	letter-spacing: 0.1rem;
+}
+.result_table tbody tr:nth-child(2n) td {
+  background: #f9f9f9;
+}
+table.result_table {
+  width: 100%;
+  margin: 0 auto;
+}
+.main_title{
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+.c_white{color: #fff}
+.mt30{margin-top:30px}.mt35{margin-top:35px}
+.mb30{margin-bottom:30px}.mb35{margin-bottom:35px}
+.mt40{margin-top:40px}.mt45{margin-top:45px}.mt50{margin-top:50px}
+.mb40{margin-bottom:40px}.mb45{margin-bottom:45px}.mb50{margin-bottom:50px}
+@media (maxi-width:768px){
+	.mt40,.mt45,.mt50,.mt55{margin-top:35px}
+	.mb40,.mb45,.mb50,.mb55{margin-bottom:35px}
+}
+
+/*
+ * Container style
+ */
+.ps {
+  overflow: hidden !important;
+  overflow-anchor: none;
+  -ms-overflow-style: none;
+  touch-action: auto;
+  -ms-touch-action: auto;
+}
+
+/*
+ * Scrollbar rail styles
+ */
+.ps__rail-x {
+  display: none;
+  opacity: 0;
+  transition: background-color .2s linear, opacity .2s linear;
+  -webkit-transition: background-color .2s linear, opacity .2s linear;
+  height: 15px;
+  /* there must be 'bottom' or 'top' for ps__rail-x */
+  bottom: 0px;
+  /* please don't change 'position' */
+  position: absolute;
+}
+
+.ps__rail-y {
+  display: none;
+  opacity: 0;
+  transition: background-color .2s linear, opacity .2s linear;
+  -webkit-transition: background-color .2s linear, opacity .2s linear;
+  width: 15px;
+  /* there must be 'right' or 'left' for ps__rail-y */
+  right: 0;
+  /* please don't change 'position' */
+  position: absolute;
+}
+
+.ps--active-x > .ps__rail-x,
+.ps--active-y > .ps__rail-y {
+  display: block;
+  background-color: transparent;
+}
+
+.ps:hover > .ps__rail-x,
+.ps:hover > .ps__rail-y,
+.ps--focus > .ps__rail-x,
+.ps--focus > .ps__rail-y,
+.ps--scrolling-x > .ps__rail-x,
+.ps--scrolling-y > .ps__rail-y {
+  opacity: 0.6;
+}
+
+.ps__rail-x:hover,
+.ps__rail-y:hover,
+.ps__rail-x:focus,
+.ps__rail-y:focus {
+  background-color: #d8d8d8;
+  opacity: 0.9;
+}
+
+/*
+ * Scrollbar thumb styles
+ */
+.ps__thumb-x {
+  background-color: #2a336b;
+  border-radius: 6px;
+  transition: background-color .2s linear, height .2s ease-in-out;
+  -webkit-transition: background-color .2s linear, height .2s ease-in-out;
+  height: 6px;
+  /* there must be 'bottom' for ps__thumb-x */
+  bottom: 2px;
+  /* please don't change 'position' */
+  position: absolute;
+}
+
+.ps__thumb-y {
+  background-color: #2a336b;
+  border-radius: 6px;
+  transition: background-color .2s linear, width .2s ease-in-out;
+  -webkit-transition: background-color .2s linear, width .2s ease-in-out;
+  width: 6px;
+  /* there must be 'right' for ps__thumb-y */
+  right: 2px;
+  /* please don't change 'position' */
+  position: absolute;
+}
+
+.ps__rail-x:hover > .ps__thumb-x,
+.ps__rail-x:focus > .ps__thumb-x {
+  background-color: #2a336b;
+  height: 11px;
+}
+
+.ps__rail-y:hover > .ps__thumb-y,
+.ps__rail-y:focus > .ps__thumb-y {
+  background-color: #2a336b;
+  width: 11px;
+}
+
+/* MS supports */
+@supports (-ms-overflow-style: none) {
+  .ps {
+    overflow: auto !important;
+  }
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .ps {
+    overflow: auto !important;
+  }
+}

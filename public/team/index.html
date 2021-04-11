@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="jp" dir="ltr">
+<head>
+<title>TEAM SELECT</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="initial-scale=1.0">
+<!-- style -->
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/css/parts.css">
+<!-- js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../assets/js/common.js"></script>
+<script>
+  let selectSound = new Audio("../assets/mp3/tap01.mp3");
+  let tapSound = () => {
+    selectSound.currentTime = 0;
+    selectSound.play();
+  }
+
+  $(document).ready(function(){
+    let heightSize = $(window).height();
+    $('.screen_wrap').height(heightSize);
+    if (window.ontouchstart === null) {
+      window.addEventListener('touchstart', (e) => {
+        // e.preventDefault();
+        // alert("test---->touchstart");
+      });
+      window.addEventListener('touchmove', (e) => {
+        // e.preventDefault();
+        // alert("test---->touchmove");
+      });
+      window.addEventListener('touchend', (e) => {
+        // e.preventDefault();
+        // alert("test---->touchend");
+      });
+    } else {
+      window.addEventListener('click', (e) => {
+        e.preventDefault();
+        // alert("test---->click");
+      });
+    }
+    $('.nextLinkU').click(function(e) {
+      e.preventDefault();
+      tapSound();
+      var TransitionDelay = function(){
+        window.location.href = '../team_unicorn/';
+      }
+      setTimeout ( TransitionDelay, 1500 );
+      // Save the selected team information to session storage
+      window.sessionStorage.setItem(['team'], $(this).data('index'));
+    });
+    $('.nextLinkN').click(function(e) {
+      e.preventDefault();
+      tapSound();
+      var TransitionDelay = function(){
+        window.location.href = '../team_neozeong/';
+      }
+      setTimeout ( TransitionDelay, 1500 );
+      // Save the selected team information to session storage
+      window.sessionStorage.setItem(['team'], $(this).data('index'));
+    });
+  });
+</script>
+</head>
+  <body>
+    <section id="select_sec" class="screen_wrap select_sec">
+      <div class="headTitle">
+        <figure>
+          <img src="../assets/img/top_bar01.png" alt="装飾ヘッダー">
+        </figure>
+      </div>
+      <div class="pageTitle">
+        <p class="font40 en_font">TEAM</p>
+      </div>
+      <div class="teamSection">
+      <div class="ta_c">
+        <figure>
+          <img width="138px" src="../assets/img/icon_select.png" alt="セレクト">
+        </figure>
+      </div>
+      <div class="wrap langBtnWrap">
+        <div>
+          <a class="nextLink nextLinkU" data-index="2">
+            <figure class="button_shadow01 img_w60">
+              <img src="../assets/img/team_u_btn01.png" alt="ユニコーンチームを選択">
+            </figure>
+          </a>
+        </div>
+        <div>
+          <a class="nextLink nextLinkN" data-index="1">
+            <figure class="button_shadow01 img_w60">
+              <img src="../assets/img/team_u_btn02.png" alt="ネオジオングチームを選択">
+            </figure>
+          </a>
+        </div>
+      </div>
+      </div>
+    </section>
+  </body>
+</html>

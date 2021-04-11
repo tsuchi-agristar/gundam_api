@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="jp" dir="ltr">
+<meta charset="utf-8">
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="initial-scale=1.0">
+<title>結果画面</title>
+<!-- style -->
+<link rel="stylesheet" href="./result_screen.css">
+<!-- js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="./js/common.js"></script>
+<script>
+
+// アイコン ico_n=ネオジオング ico_u=ユニコーンガンダム
+var masta = [
+  {"winner" : 1, "name" : "<div class='ico_u'><figure><img width='25px' src='./img/ico_n.png'></figure></div>"},
+  {"winner" : 2, "name" : "<div class='ico_n'><figure><img width='25px' src='./img/ico_u.png'></figure></div>"}
+];
+var mapMasta = {};
+for (var ii = 0; ii < masta.length; ii++) {
+    mapMasta[masta[ii].winner] = masta[ii].name;
+}
+function getWinnerName (winner) {
+  return mapMasta[winner];
+}
+function orgRound(n){
+  return Math.floor(n)
+}
+// date change
+function dateChange(inDate){
+  var outDate = new Date(inDate);
+      getyear = outDate.getFullYear(),
+      getmonth = ("0"+(outDate.getMonth() + 1)).slice(-2),
+      getdate = ("0"+outDate.getDate()).slice(-2),
+      getday = outDate.getDay(),
+      gethours = ('0' + outDate.getHours()).slice(-2),
+      getminutes = ('0' + outDate.getMinutes()).slice(-2),
+      getseconds = ('0' + outDate.getSeconds()).slice(-2);
+      return getyear+'-'+getmonth+'-'+getdate+' '+gethours+':'+getminutes+':'+getseconds;
+}
+
+$(function(){
+    $.ajax({
+      url  : 'https://gundamapim.azurewebsites.net/api/admin/result',
+      type : "get",
+      dataType:"json"
+    })
+    .done(function(data){
+      var result = "";
+      for (var i = 0; i < data.length; i++) {
+          var row = data[i];
+          result += "<tr>";
+          // 勝者(A or B)
+          result += '<td>'+getWinnerName(row.winner)+'</td>';
+          // ゲーム開始時間
+          result += '<td class="ta_l">'+dateChange(row.game_start_at)+'</td>';
+          // ゲーム終了時間
+          result += '<td class="ta_l">'+dateChange(row.game_end_at)+'</td>';
+          // 参加者総数
+          result += '<td>'+row.total_participants+'</td>';
+          // 参加者発射総数
+          result += '<td>'+row.total_launches+'</td>';
+          //参加者数(日本)
+          result += '<td>'+row.japan+'</td>';
+          // 参加者数(韓国語)
+          result += '<td>'+row.korea+'</td>';
+          // 参加者数(英語)
+          result += '<td>'+row.english+'</td>';
+          // 参加者数(中国語)
+          result += '<td>'+row.chinese+'</td>';
+          // Aチーム参加者総数
+          result += '<td>'+row.a_participants+'</td>';
+          // Aチーム発射総数
+          result += '<td>'+row.a_launches+'</td>';
+          // Aチーム攻撃数
+          result += '<td>'+orgRound(row.a_score)+'</td>';
+          // Bチーム参加者総数
+          result += '<td>'+row.b_participants+'</td>';
+          // Bチーム発射総数
+          result += '<td>'+row.b_launches+'</td>';
+          // Bチーム攻撃数
+          result += '<td>'+orgRound(row.b_score)+'</td>';
+          // difficulty
+          result += '<td>'+row.difficulty+'</td>';
+          result += "</tr>";
+      }
+        $("#result_table>tbody")
+        .html(result);
+    });
+  });
+</script>
+
+</head>
+  <body>
+    <header class="header mb40">
+      <h1 class="c_white en_font">GUNDAM SCRAMBLE in FUKUOKA</h1>
+    </header>
+    <main>
+      <section id="result_screen">
+        <div class="secinner">
+          <h2 class="main_title">結果画面</h2>
+          <div id="scrollbar01" class="overflow">
+            <table id="result_table" class="result_table">
+              <thead>
+                <tr>
+                  <!-- <th>勝者</th>
+                  <th>ゲーム開始時刻</th>
+                  <th>ゲーム終了時刻</th>
+                  <th>参加総数<br>(人)</th>
+                  <th>発射総数<br>(回)</th>
+                  <th>参加者数(日)<br>(人)</th>
+                  <th>参加者数(韓)<br>(人)</th>
+                  <th>参加者数(英)<br>(人)</th>
+                  <th>参加者数(中)<br>(人)</th>
+                  <th>参加総数(A)<br>(人)</th>
+                  <th>発射数(A)<br>(人)</th>
+                  <th>攻撃力(A)</th>
+                  <th>参加総数(B)<br>(人)</th>
+                  <th>発射数(B)<br>(人)</th>
+                  <th>攻撃力(B)</th>
+                  <th>難易度</th> -->
+                  <th>勝者</th>
+                  <th>ゲーム開始時刻</th>
+                  <th>ゲーム終了時刻</th>
+                  <th>参加総数</th>
+                  <th>発射総数</th>
+                  <th>参加者数(日)</th>
+                  <th>参加者数(韓)</th>
+                  <th>参加者数(英)</th>
+                  <th>参加者数(中)</th>
+                  <th>参加総数(A)</th>
+                  <th>発射数(A)</th>
+                  <th>攻撃力(A)</th>
+                  <th>参加総数(B)</th>
+                  <th>発射数(B)</th>
+                  <th>攻撃力(B)</th>
+                  <th>難易度</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script type="text/javascript">
+    var ps = new PerfectScrollbar('#scrollbar01');
+    </script>
+  </body>
+</html>

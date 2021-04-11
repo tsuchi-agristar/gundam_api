@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="jp" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>YOUR TEAM CONTRIBUTION</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="initial-scale=1.0">
+<!-- style -->
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/css/parts.css">
+<!-- js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../assets/js/common.js"></script>
+<script>
+  let viewWinner_retry_cnt = 0;
+  const api_call_max = 5;
+  let timerId;
+  let endFlag = false;
+  let l_result = 0;
+  let l_rank = "---";
+  let l_team = window.sessionStorage.getItem('team');
+
+  function getTeamParticipants () {
+    // Get the number of team participants
+    $.ajax({
+        url: 'https://gundamapim.azurewebsites.net/api/front/participants',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          team : l_team
+        },
+        timeout:3000
+    })
+    .done((data) => {
+      // console.log(JSON.stringify(data));
+      if(Object.keys(data).length != 0) {
+        if (data != null) {
+          l_result = data.result;
+          l_rank = ++data.team_participants;
+        }
+      }
+    })
+    .fail((data) => {
+      console.log("Exception occurred, so api call retry.");
+    })
+    .always((data) => {
+      // console.log("Complete...");
+    });
+  }
+
+  function viewContribution () {
+    let contributon_body = '';
+    let lang = window.sessionStorage.getItem('lang');
+    switch (lang) {
+      case '1':
+        contribution_body = '<p class="abs_text_left font15 c_blue01"><span class="font22 ls01 text_padding_block">あなたの</span><span class="font32 text_padding_block">チーム</span><span class="font30 ls03 text_padding_block">貢献度</span></p><p class="abs_text_right rankFont c_white01"><span class="resultNum jp_font">&nbsp;</span><span class="font32 abs_text_right-num">位</span></p>';
+        break;
+      case '2':
+        contribution_body = '<p class="abs_text_left font15 en_font c_blue01"><span class="font22 en_font ls02 text_padding_block">Your</span><span class="font22 en_font ls02 text_padding_block">team</span><span class="font15 en_font ls01 text_padding_block">contribution</span></p><p class="abs_text_right rankFont c_white01"><span class="resultNum jp_font">&nbsp;</span><span class="font32 abs_text_right-num en_font en_th">th</span></p>';
+        break;
+      case '3':
+        contribution_body = '<p class="abs_text_left font15 ch_font c_blue01"><span class="font25 lang03 ch_font ls07 text_padding_block">你的</span><span class="font25 lang03 ch_font ls07 text_padding_block">團隊</span><span class="font25 lang03 ch_font ls03 text_padding_block">貢獻度</span></p><p class="abs_text_right rankFont c_white01"><span class="resultNum jp_font">&nbsp;</span><span class="font32 abs_text_right-num">位</span></p>';
+        break;
+      case '4':
+        contribution_body = '<p class="abs_text_left font15 ko_font c_blue01"><span class="font25 ko_font ls05 text_padding_block">당신의</span><span class="font25 ko_font ls05 text_padding_block">팀</span><span class="font25 ko_font ls05 text_padding_block">공헌도</span></p><p class="abs_text_right rankFont c_white01"><span class="resultNum jp_font">&nbsp;</span><span class="font32 ko_font abs_text_right-num">위</span></p>';
+        break;
+      default:
+        contribution_body = '<p class="abs_text_left font15 c_blue01"><span class="font22 ls01 text_padding_block">あなたの</span><span class="font32 text_padding_block">チーム</span><span class="font30 ls03 text_padding_block">貢献度</span></p><p class="abs_text_right rankFont c_white01"><span class="resultNum jp_font">&nbsp;</span><span class="font32 abs_text_right-num">位</span></p>';
+        break;
+    }
+    $("#resultText").html(contribution_body);
+  }
+  function viewWinner () {
+    // Get game result
+    $.ajax({
+      url: 'https://gundamapim.azurewebsites.net/api/front/result',
+      type: 'GET',
+      dataType: 'json',
+      data: {
+        sid : window.sessionStorage.getItem('sid')
+      },
+      timeout:5000
+    })
+    .done((data) => {
+      // console.log(JSON.stringify(data));
+      // If json object is empty
+      if(Object.keys(data).length == 0) {
+        viewWinner_retry_cnt++;
+        if(viewWinner_retry_cnt < api_call_max) {
+          console.log("RetrY...");
+          // Retry
+          setTimeout(() => {
+            viewWinner();
+          }, 2000);
+          return;
+        }
+
+        // Retry out
+        if (viewWinner_retry_cnt == api_call_max ) {
+          console.log("Retry out!!");
+          getTeamParticipants();
+        }
+      }
+
+      if (data == null) {
+        console.log("data is null");
+      } else {
+        if (data.result !== undefined) {
+          l_result = data.result;
+        }
+        if (data.rank !== undefined) {
+          l_rank = data.rank;
+        }
+      }
+      endFlag = true;
+    })
+    .fail((data) => {
+      console.log("Exception...");
+      viewWinner_retry_cnt++;
+        // If json object is empty
+        if(viewWinner_retry_cnt < api_call_max) {
+          console.log("Retry...");
+          // Retry
+          setTimeout(() => {
+            viewWinner();
+          }, 2000);
+          return;
+        }
+
+        // Retry out
+        if (viewWinner_retry_cnt == api_call_max ) {
+          console.log("Retry out!!");
+          getTeamParticipants();
+        }
+        endFlag = true;
+    })
+    .always((data) => {
+      if (!endFlag) {
+        console.log("It doesn't finish...");
+        return;
+      }
+      // Set session storage 
+      setTimeout(() => {
+        window.sessionStorage.setItem('result', l_result);
+        window.sessionStorage.setItem('rank', l_rank);
+      }, 3500);
+
+      let s_team;
+      let s_result;
+
+      setTimeout(() => {
+        switch (l_team) {
+          case '1':
+            s_team = "Zeong";
+            break;
+          case '2':
+            s_team = "Gundam";
+            break;
+          default :
+            s_team = "Gundam";
+            break;
+          }
+        switch (l_result) {
+          case '0':
+            s_result = "lose";
+            break;
+          case '1':
+            s_result = "win";
+            break;
+          default :
+           s_result = "lose";
+            break;
+        }
+        $(".resultWrap").children("figure").children("img").attr('src', "../assets/img/"+s_result+"_img"+s_team+".png");
+        $(".pageTitle").children("figure").children("img").attr('src', "../assets/img/"+s_result+"_title"+s_team+".png");
+        // View Ranking
+        viewRanking();
+      }, 5000);
+    });
+  }
+  function viewRanking () {
+    timerId = setInterval(()=> {
+      let s_rank = window.sessionStorage.getItem('rank');
+      if ((s_rank != undefined) && (s_rank != "")) {
+        $(".resultNum").text(s_rank); 
+        // Stop timer
+        clearInterval(timerId);
+        return;
+      }
+    }, 5000);
+  }
+
+  $(document).ready(function(){
+    let heightSize = $(window).height();
+    $('.mask_bg').height(heightSize);
+    $('.screen_wrap').height(heightSize);
+  });
+
+</script>
+</head>
+  <body>
+    <section id="team_neozeong" class="screen_wrap select_sec">
+      <div class="headTitle">
+        <figure>
+          <img src="../assets/img/top_bar01.png" alt="装飾ヘッダー">
+        </figure>
+      </div>
+      <div id="pageTitle" class="pageTitle">
+        <figure class="img_w img_w60 resultImg">
+          <img src="" alt="">
+        </figure>
+      </div>
+      <div id="resultWrap" class="resultWrap">
+        <figure>
+          <img src="" alt="">
+        </figure>
+      </div>
+      <div class="bottom_abs_button zindex_button">
+        <div class="flex wrap img_w img_w90">
+          <div class="bg_frame rel">
+            <div id="resultText" ></div>
+            <div class="changeImg02">
+              <img src="../assets/img/frame.png" alt="フレーム">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  <script>
+    // View Contribution
+    viewContribution();
+    // View Winner
+    viewWinner();
+  </script>
+  </body>
+</html>

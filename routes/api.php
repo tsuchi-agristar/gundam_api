@@ -25,6 +25,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'front', 'as' => 'front.' ], fun
     Route::get('/status', ['as' => 'status', 'uses' => 'FrontController@status']);
     Route::get('/attack', ['as' => 'attack', 'uses' => 'FrontController@attack']);
     Route::get('/result', ['as' => 'result', 'uses' => 'FrontController@result']);
+    Route::get('/participants', ['as' => 'participants', 'uses' => 'FrontController@participants']);
 });
 
 Route::group(['namespace' => 'Api', 'prefix' => 'processing', 'as' => 'processing.' ], function() {

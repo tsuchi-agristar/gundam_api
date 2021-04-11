@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="jp" dir="ltr">
+<head>
+<meta charset="utf-8">
+<title>LANGUAGE SELECT</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="initial-scale=1.0">
+<!-- style -->
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/css/parts.css">
+<!-- js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../assets/js/common.js"></script>
+<script>
+  let selectSound = new Audio("../assets/mp3/tap01.mp3");
+  let tapSound = () => {
+    selectSound.currentTime = 0;
+    selectSound.play();
+  }
+  
+  $(document).ready(function(){
+    let heightSize = $(window).height();
+    $('.screen_wrap').height(heightSize);
+    if (window.ontouchstart === null) {
+      window.addEventListener('touchstart', (e) => {
+        // e.preventDefault();
+        // alert("test---->touchstart");
+      });
+      window.addEventListener('touchmove', (e) => {
+        // e.preventDefault();
+        // alert("test---->touchmove");
+      });
+      window.addEventListener('touchend', (e) => {
+        // e.preventDefault();
+        // alert("test---->touchend");
+      });
+    } else {
+      window.addEventListener('click', (e) => {
+        e.preventDefault();
+        // alert("test---->click");
+      });
+    }
+    $('.nextLink').click(function(e) {
+      e.preventDefault();
+      let index = $(this).data('index');
+      // 1:Japanese 2:English 3:Chinese 4:Korea
+      switch (index) {
+        case 1:
+          window.sessionStorage.setItem(['lang'], 1);
+          break;
+        case 2:
+          window.sessionStorage.setItem(['lang'], 2);
+          break;
+        case 3:
+          window.sessionStorage.setItem(['lang'], 3);
+          break;
+        case 4:
+          window.sessionStorage.setItem(['lang'], 4);
+          break;
+        default:
+          window.sessionStorage.setItem(['lang'], 1);
+          break;
+      }
+      tapSound();
+      setTimeout(function() {
+        window.location.href = '../team/';
+      }, 1500);
+    });
+  });
+</script>
+</head>
+  <body cz-shortcut-listen="true" style="min-height: 812px;">
+    <section id="select_sec" class="screen_wrap select_sec" style="height: 937px;"> 
+      <div class="headTitle">
+        <figure>
+          <img src="../assets/img/top_bar01.png" alt="装飾ヘッダー">
+        </figure>
+      </div>
+      <div class="pageTitle">
+        <p class="font40 en_font">LANGUAGE</p>
+      </div>
+      <div class="teamSection">
+        <div class="ta_c">
+          <figure>
+            <img width="138px" src="../assets/img/icon_select.png" alt="セレクト">
+          </figure>
+        </div>
+        <div class="wrap langBtnWrap">
+          <div>
+            <a href="http://saber.mixh.jp/gundam_client-master/2/team/" class="nextLink ta_c" data-index="1">
+              <p class="font32 c_blue01">日本語</p>
+              <figure>
+                <img src="../assets/img/frame.png" alt="言語選択">
+              </figure>
+            </a>
+          </div>
+          <div>
+            <a href="http://saber.mixh.jp/gundam_client-master/2/team/" class="nextLink ta_c" data-index="2">
+              <p class="font30 en_font c_blue01">English</p>
+              <figure>
+                <img src="../assets/img/frame.png" alt="言語選択">
+              </figure> 
+            </a>
+          </div>
+          <div>
+            <a href="http://saber.mixh.jp/gundam_client-master/2/team/" class="nextLink ta_c" data-index="3">
+              <p class="font28 ch_font c_blue01">中文(繁体)</p>
+              <figure>
+                <img src="../assets/img/frame.png" alt="言語選択">
+              </figure>
+            </a>
+          </div>
+          <div>
+            <a href="http://saber.mixh.jp/gundam_client-master/2/team/" class="nextLink ta_c" data-index="4">
+              <p class="font30 ko_font c_blue01">한국어</p>
+              <figure>
+                <img src="../assets/img/frame.png" alt="言語選択">
+              </figure>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
