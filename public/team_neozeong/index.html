@@ -200,7 +200,7 @@
         dataType: 'json'
       })
       .done((data) => {
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
         if (data == null) {
           console.log("data is null");
           return;
@@ -230,7 +230,7 @@
       });
     }
     // Execute pooling
-    timerId = setInterval(gameStartCheck, 2000);
+    timerId = setInterval(gameStartCheck, 1000);
   }
 
   $(document).ready(function(){
