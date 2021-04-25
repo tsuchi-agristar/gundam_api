@@ -77,6 +77,14 @@
       window.location.href = '../result/';
     }, 5000);
   }
+  function forcePagination() {
+    setTimeout(function(){
+      // Battle End
+      battleEnd();
+      // Pagination
+      pagination();
+    }, 40000);
+  }
   function statusCheck() {
     let timerId;
     // Polling
@@ -87,7 +95,7 @@
         dataType: 'json'
       })
       .done((data) => {
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
         if (data == null) {
         console.log("data is null");
         return;
@@ -253,6 +261,8 @@
       deleteTapIcon();
       // Game Status Check
       statusCheck();
+      // Force pagination
+      forcePagination();
     </script>
   </body>
 </html>
