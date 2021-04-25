@@ -134,7 +134,7 @@
     if(l_sid == null || l_sid == "") {
       // Initialize
       $.ajax({
-        url: 'https://gundamapim.azurewebsites.net/api/front/initialize',
+        url: 'https://gundamapim-dev.azurewebsites.net/api/front/initialize',
         type: 'GET',
         dataType: 'json',
         timeout:3000
@@ -195,7 +195,7 @@
     // Polling
     let gameStartCheck = () => {
       $.ajax({
-        url: 'https://gundamapim.azurewebsites.net/api/front/status',
+        url: 'https://gundamapim-dev.azurewebsites.net/api/front/status',
         type: 'GET',
         dataType: 'json'
       })

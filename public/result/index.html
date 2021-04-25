@@ -25,7 +25,7 @@
   function getTeamParticipants () {
     // Get the number of team participants
     $.ajax({
-        url: 'https://gundamapim.azurewebsites.net/api/front/participants',
+        url: 'https://gundamapim-dev.azurewebsites.net/api/front/participants',
         type: 'GET',
         dataType: 'json',
         data: {
@@ -75,7 +75,7 @@
   function viewWinner () {
     // Get game result
     $.ajax({
-      url: 'https://gundamapim.azurewebsites.net/api/front/result',
+      url: 'https://gundamapim-dev.azurewebsites.net/api/front/result',
       type: 'GET',
       dataType: 'json',
       data: {

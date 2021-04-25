@@ -77,12 +77,22 @@
       window.location.href = '../result/';
     }, 5000);
   }
+  function forcePagination() {
+    console.log("check1...");
+    setTimeout(function(){
+      console.log("check2...");
+      // Battle End
+      battleEnd();
+      // Pagination
+      pagination();
+    }, 40000);
+  }
   function statusCheck() {
     let timerId;
     // Polling
     let gameStatusCheck = () => {
       $.ajax({
-        url: 'https://gundamapim.azurewebsites.net/api/front/status',
+        url: 'https://gundamapim-dev.azurewebsites.net/api/front/status',
         type: 'GET',
         dataType: 'json'
       })
@@ -128,7 +138,7 @@
     tap();
     // Charge
     $.ajax({
-      url: 'https://gundamapim.azurewebsites.net/api/front/attack',
+      url: 'https://gundamapim-dev.azurewebsites.net/api/front/attack',
       type: 'GET',
       dataType: 'json',
       data: {
@@ -252,7 +262,9 @@
       // Delete Tap Icon
       deleteTapIcon();
       // Game Status Check
-      statusCheck();      
+      statusCheck();
+      // Force pagination
+      forcePagination();
     </script>
   </body>
 </html>
