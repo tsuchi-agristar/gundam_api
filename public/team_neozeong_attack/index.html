@@ -85,7 +85,7 @@
       battleEnd();
       // Pagination
       pagination();
-    }, 4000);
+    }, 40000);
   }
   function statusCheck() {
     let timerId;
@@ -97,7 +97,7 @@
         dataType: 'json'
       })
       .done((data) => {
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
         if (data == null) {
         console.log("data is null");
         return;
